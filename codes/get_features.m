@@ -20,6 +20,5 @@ end
 l2_acc_in = l2_norm_acc_inertial;
 l2_ori = l2_norm_ori;
 dist = dist_acc_ori;
-
 end
 
