@@ -1,10 +1,14 @@
-Parameters;
-K_z = 2;
-T_aero = 2;
-kP_z = 40;
-kD_z = 17;
+payload Parameters;
+k_eq = 0.2337;
+T_1 = 0.5794;
+T_prop = 0.0177;
+tau = 0.0526;
+kP_z = 80;
+kD_z = 13;
+
+
 [Q(1),a] = error(ref);
-R(1) = Q(1)
+R(1) = Q(1);
 kP_z_iter = kP_z;
 kD_z_iter = kD_z;
 while Q(1)>1
@@ -22,7 +26,7 @@ while Q(1)>1
     [Q(5),a] = error(ref);
     [Q_min,index] = min(Q);
     if index == 1
-        print("min=1")
+        %print("minimum=1")
         break
     else 
         switch(index)
@@ -42,8 +46,8 @@ end
     
 
 function [Q_new,a] = error(ref)
-    simout = sim("QCwithActDyn_NewPID");
-    a = simout.z_out.Data;
-    Q_new = sum(abs(a(6000:end)-ref(6000:end)));
+    out = sim("QCwithActDyn_NewPID.slx");
+    a = out.simout.Data;
+    Q_new = sum((a(1:200)-ref(1:200)).^2);
 end
     
